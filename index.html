@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petar Dizajn | Grafički Dizajner</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:#020617;color:white;overflow-x:hidden}
+header{position:fixed;width:100%;top:0;padding:18px 60px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(14px);background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.05);z-index:1000}
+nav{display:flex}
+nav a{margin-left:25px;text-decoration:none;color:#cbd5f5;position:relative;font-weight:500}
+nav a::after{content:'';position:absolute;width:0;height:2px;background:#38bdf8;bottom:-6px;left:0;transition:.3s}
+nav a:hover::after{width:100%}
+.menu-toggle{display:none;width:30px;height:22px;cursor:pointer;position:relative;z-index:1200}
+.menu-toggle span{position:absolute;width:100%;height:3px;background:white;left:0;transition:.4s;border-radius:3px}
+.menu-toggle span:nth-child(1){top:0}
+.menu-toggle span:nth-child(2){top:9px}
+.menu-toggle span:nth-child(3){bottom:0}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg);top:9px}
+.menu-toggle.active span:nth-child(2){opacity:0}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg);bottom:10px}
+@media(max-width:768px){.menu-toggle{display:block}nav{position:fixed;right:-100%;top:0;height:100vh;width:260px;background:#020617;flex-direction:column;padding-top:120px;transition:.45s cubic-bezier(.77,0,.18,1);box-shadow:-15px 0 40px rgba(0,0,0,.6)}nav a{margin:20px 30px;font-size:20px}nav.active{right:0}}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:.4s;z-index:900}.overlay.show{opacity:1;pointer-events:auto}
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;position:relative}.hero::before{content:'';position:absolute;width:700px;height:700px;background:radial-gradient(circle,#38bdf8 0%,transparent 70%);filter:blur(140px);z-index:-1;animation:float 8s infinite ease-in-out}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-40px)}}
+.hero h2{font-size:48px;max-width:800px;margin-bottom:20px}.hero p{color:#94a3b8;margin-bottom:30px}.btn{background:#38bdf8;padding:14px 30px;border-radius:40px;color:black;font-weight:600;text-decoration:none;transition:.3s}.btn:hover{transform:scale(1.1);box-shadow:0 0 25px #38bdf8}
+section{padding:100px 60px;max-width:1200px;margin:auto;text-align:center}
+h2{font-size:34px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;margin-top:50px}
+.card{background:#0f172a;padding:20px;border-radius:18px;transition:.4s;opacity:0;transform:translateY(40px);border:1px solid rgba(255,255,255,0.05);overflow:hidden}.card.show{opacity:1;transform:translateY(0)}.card:hover{transform:translateY(-12px) scale(1.04);box-shadow:0 20px 45px rgba(56,189,248,0.25)}
+.link-btn{display:inline-block;margin-top:15px;padding:8px 16px;border-radius:20px;background:#38bdf8;color:black;text-decoration:none;font-size:14px;transition:.3s}.link-btn:hover{transform:scale(1.1);box-shadow:0 0 15px #38bdf8}
+.portfolio img{width:100%;border-radius:15px;cursor:pointer;transition:.4s}.portfolio img:hover{transform:scale(1.05)}
+.img-modal{display:none;position:fixed;z-index:2000;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px)}
+.modal-content{display:block;margin:auto;max-width:90%;max-height:80%;margin-top:60px;border-radius:12px}.close{position:absolute;top:20px;right:40px;font-size:40px;cursor:pointer}
+.text-overlay{position:absolute;bottom:40px;left:50%;transform:translateX(-50%) translateY(40px) scale(0.9);color:white;font-size:42px;font-weight:700;letter-spacing:3px;opacity:0;transition:.6s cubic-bezier(.77,0,.18,1);text-shadow:0 0 10px rgba(56,189,248,0.6),0 0 25px rgba(56,189,248,0.6),0 0 45px rgba(56,189,248,0.8)}
+.modal-wrapper{position:relative;text-align:center}.modal-wrapper.show .text-overlay{opacity:1;transform:translateX(-50%) translateY(0) scale(1);animation:glowText 2s ease-in-out infinite alternate}@keyframes glowText{from{text-shadow:0 0 10px rgba(56,189,248,0.6)}to{text-shadow:0 0 30px rgba(56,189,248,1)}}
+.about-img{width:200px;height:200px;margin:auto;border-radius:50%;border:4px solid #38bdf8;animation:borderPulse 2.5s infinite alternate;margin-bottom:30px}@keyframes borderPulse{0%{box-shadow:0 0 10px #38bdf8}50%{box-shadow:0 0 25px #38bdf8}100%{box-shadow:0 0 40px #38bdf8}}
+.contact-info{display:flex;justify-content:center;gap:30px;font-size:18px;margin-top:20px;flex-wrap:wrap}.contact-info i{color:#38bdf8;margin-right:8px}.floating{position:fixed;bottom:25px;right:25px;background:#38bdf8;color:black;padding:14px 22px;border-radius:40px;text-decoration:none;font-weight:600;box-shadow:0 0 20px #38bdf8}
+footer{padding:25px;text-align:center;background:#010409;color:#64748b;margin-top:50px}
+@media(max-width:768px){header{padding:18px 25px}.hero h2{font-size:32px}section{padding:80px 25px}.contact-info{flex-direction:column;align-items:center;gap:10px}}
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<header>
+<h1>Petar Dizajn</h1>
+<div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
+<nav id="nav">
+<a href="#">Početna</a>
+<a href="#services">Usluge</a>
+<a href="#about">O meni</a>
+<a href="#portfolio">Portfolio</a>
+<a href="#contact">Kontakt</a>
+</nav>
+</header>
+
+<section class="hero">
+<h2>Grafički dizajn koji pretvara posetioce u klijente</h2>
+<p>Logo • Brending • Marketing dizajn</p>
+<a href="#contact" class="btn">Započni saradnju</a>
+</section>
+
+<section id="services">
+<h2>Usluge</h2>
+<div class="grid">
+<div class="card">
+<h3>Dizajn logotipa</h3>
+<a href="https://www.behance.net/" target="_blank" class="link-btn">Pogledaj radove</a>
+</div>
+<div class="card">
+<h3>Social Media Dizajn</h3>
+<a href="https://www.behance.net/" target="_blank" class="link-btn">Pogledaj radove</a>
+</div>
+<div class="card">
+<h3>Marketing Materijali</h3>
+<a href="https://www.behance.net/" target="_blank" class="link-btn">Pogledaj radove</a>
+</div>
+<div class="card">
+<h3>Brending</h3>
+<a href="https://www.behance.net/" target="_blank" class="link-btn">Pogledaj radove</a>
+</div>
+</div>
+</section>
+
+<section id="about">
+<img src="slike/15811.png" alt="Petar" class="about-img">
+<h2>O meni</h2>
+<p>Ja sam Petar, grafički dizajner sa 5 godina iskustva u radu za različite klijente. Specijalizovan sam za dizajn logotipa, vizit kartica, postova za društvene mreže, marketing materijale i brending. Volim da kreiram vizuale koji ne samo da izgledaju lepo, već i prodaju.</p>
+</section>
+
+<section id="portfolio" class="portfolio">
+<h2>Portfolio</h2>
+<div class="grid">
+<div class="card"><img src="Portfolio websajt/slike/1.jpg" data-text="Vizit Kartice"></div>
+<div class="card"><img src="https://picsum.photos/800/600?2" data-text="Postovi za društvene mreže"></div>
+<div class="card"><img src="https://picsum.photos/800/600?3" data-text="Logo"></div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Kontakt</h2>
+<div class="contact-info">
+<p><i class="fas fa-phone"></i>064 313 16 36</p>
+<p><i class="fas fa-envelope"></i>petarsamcevic.design@gmail.com</p>
+</div>
+</section>
+
+<footer><p>© 2026 Petar Dizajn</p></footer>
+<a href="#contact" class="floating">Kontakt</a>
+
+<div class="img-modal" id="imgModal">
+<span class="close">&times;</span>
+<div class="modal-wrapper" id="modalWrapper">
+<img class="modal-content" id="modalImg">
+<div class="text-overlay" id="modalText"></div>
+</div>
+</div>
+
+<script>
+const toggle=document.getElementById("menu-toggle");
+const nav=document.getElementById("nav");
+const overlay=document.getElementById("overlay");
+toggle.onclick=()=>{toggle.classList.toggle("active");nav.classList.toggle("active");overlay.classList.toggle("show");};
+overlay.onclick=closeMenu;
+document.querySelectorAll("#nav a").forEach(link=>{link.onclick=closeMenu;});
+function closeMenu(){toggle.classList.remove("active");nav.classList.remove("active");overlay.classList.remove("show");}
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{cards.forEach(card=>{const rect=card.getBoundingClientRect();if(rect.top<window.innerHeight-60){card.classList.add('show');}});});
+const modal=document.getElementById("imgModal");
+const modalImg=document.getElementById("modalImg");
+const modalText=document.getElementById("modalText");
+const modalWrapper=document.getElementById("modalWrapper");
+const images=document.querySelectorAll(".portfolio img");
+const closeBtn=document.querySelector(".close");
+images.forEach(img=>{img.onclick=function(){modal.style.display="block";modalImg.src=this.src;modalText.innerText=this.dataset.text;setTimeout(()=>{modalWrapper.classList.add("show");},50);}});
+closeBtn.onclick=()=>{modal.style.display="none";modalWrapper.classList.remove("show");};
+modal.onclick=(e)=>{if(e.target!==modalImg){modal.style.display="none";modalWrapper.classList.remove("show");}};
+</script>
+</body>
+</html>
